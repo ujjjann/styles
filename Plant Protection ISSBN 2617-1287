@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0">
+  <info>
+    <title>Modified Limnology and Oceanography Style</title>
+    <id>http://www.zotero.org/styles/modified-lno</id>
+    <link href="http://www.zotero.org/styles/modified-lno" rel="self"/>
+    <author>
+      <name>Custom</name>
+    </author>
+    <category citation-format="author-date"/>
+    <category field="biology"/>
+    <summary>Modified version of Limnology and Oceanography for custom use</summary>
+    <updated>2025-05-06T00:00:00+00:00</updated>
+    <language>en-US</language>
+  </info>
+
+  <macro name="author">
+    <names variable="author">
+      <name initialize-with=". " name-as-sort-order="first" delimiter=", " and="text"/>
+    </names>
+  </macro>
+
+  <macro name="editor">
+    <names variable="editor">
+      <name initialize-with=". " name-as-sort-order="first" delimiter=", " and="text"/>
+      <label form="short" prefix=" [" suffix="]"/>
+    </names>
+  </macro>
+
+  <macro name="title">
+    <text variable="title" text-case="sentence"/>
+  </macro>
+
+  <macro name="container-title">
+    <text variable="container-title" font-style="italic"/>
+  </macro>
+
+  <macro name="publisher">
+    <group delimiter=", ">
+      <text variable="publisher"/>
+      <text variable="publisher-place"/>
+    </group>
+  </macro>
+
+  <citation>
+    <layout prefix="(" suffix=")" delimiter="; ">
+      <group delimiter=", ">
+        <text macro="author"/>
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </group>
+    </layout>
+  </citation>
+
+  <bibliography hanging-indent="true">
+    <sort>
+      <key macro="author"/>
+      <key variable="issued"/>
+    </sort>
+    <layout>
+      <text macro="author"/>
+      <date variable="issued">
+        <date-part name="year" prefix=". " suffix="."/>
+      </date>
+      <choose>
+        <!-- Journal Articles -->
+        <if type="article-journal">
+          <text macro="title" prefix=" "/>
+          <text macro="container-title" prefix=". "/>
+          <group prefix=" " delimiter=": ">
+            <text variable="volume"/>
+            <text variable="page"/>
+          </group>
+          <text value="."/>
+        </if>
+
+        <!-- Book Sections -->
+        <else-if type="chapter">
+          <text macro="title" prefix=" "/>
+          <group prefix=", p. ">
+            <text variable="page"/>
+          </group>
+          <group prefix=". In ">
+            <text macro="editor"/>
+            <text variable="container-title" font-style="italic" prefix=", "/>
+            <text macro="publisher" prefix=". "/>
+          </group>
+          <text value="."/>
+        </else-if>
+
+        <!-- Books -->
+        <else-if type="book">
+          <text macro="title" prefix=" "/>
+          <text macro="publisher" prefix=". "/>
+          <text value="."/>
+        </else-if>
+
+        <!-- Magazine Articles -->
+        <else-if type="article-magazine">
+          <text macro="title" prefix=" "/>
+          <text macro="container-title" font-style="italic" prefix=". "/>
+          <group prefix=" ">
+            <text variable="volume"/>
+            <text variable="issue" prefix="(" suffix=")"/>
+            <text variable="page" prefix=": "/>
+          </group>
+          <text value="."/>
+        </else-if>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
